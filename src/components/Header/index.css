@@ -1,0 +1,17 @@
+.Header {
+    background-color: var(--primary-color);
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: calc(var(--base-space) * 3);
+    padding-left: var(--base-space);
+}
+
+@media screen and (min-width: 460px) {
+    .Header {
+        align-items: flex-start;
+    }
+}
