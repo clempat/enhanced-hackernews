@@ -7,7 +7,7 @@
     justify-content: center;
     color: white;
     margin-bottom: calc(var(--base-space) * 3);
-    padding-left: var(--base-space);
+    padding-left: calc(var(--base-space) * 2);
 }
 
 @media screen and (min-width: 460px) {

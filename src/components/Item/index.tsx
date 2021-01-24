@@ -23,6 +23,18 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
         [setItem, id, isVisible],
     )
 
+    useEffect(
+        // Sometime the news is not there yet so we need to re-fetch
+        function reFetch() {
+            if (item === null && isVisible) {
+                setTimeout(function () {
+                    void fetchItemById(id).then(setItem)
+                }, 1000)
+            }
+        },
+        [item, id, isVisible],
+    )
+
     if (!item) {
         return (
             <div className="Item" ref={itemRef}>
