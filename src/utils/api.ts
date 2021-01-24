@@ -7,7 +7,8 @@ export interface Item {
     time: number
     title: string
     type: 'story' | 'job' | 'comment' | 'poll' | 'pollopt'
-    url: string
+    // Sometime the API does not return an URL
+    url?: string
     dead?: boolean
 }
 

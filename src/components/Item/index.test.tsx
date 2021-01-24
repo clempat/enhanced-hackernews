@@ -12,7 +12,7 @@ describe('Item Hacker News Story', function () {
             mockFetchItemById(id, {
                 title: 'This is the title',
                 by: 'cpatout',
-                time: +new Date('2021-01-01T12:00:00'),
+                time: +new Date('2021-01-01T12:00:00') / 1000,
             }),
         )
     })
@@ -20,6 +20,13 @@ describe('Item Hacker News Story', function () {
         const { findByText } = render(<Item id={1} />)
         expect(await findByText('This is the title')).toBeInTheDocument()
     })
-    it.todo('should display the Author name')
-    it.todo('should display the Posted Time')
+    it('should display the Author name', async function () {
+        const { findByText } = render(<Item id={1} />)
+        expect(await findByText(/by cpatout/)).toBeInTheDocument()
+    })
+    it('should display the Posted Time', async function () {
+        Date.now = jest.fn(() => new Date('2021-01-01T12:30:00').valueOf())
+        const { findByText } = render(<Item id={1} />)
+        expect(await findByText(/30 min/)).toBeInTheDocument()
+    })
 })

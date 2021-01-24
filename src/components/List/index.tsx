@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './index.css'
 import { fetchNews } from '../../utils/api'
 import Item from '../Item'
 
@@ -13,9 +14,9 @@ export default function List(): React.ReactElement {
     )
 
     return (
-        <div>
-            {itemsId.map((id) => (
-                <Item key={id} id={id} />
+        <div className="List">
+            {itemsId.map((id, index) => (
+                <Item position={index + 1} key={id} id={id} />
             ))}
         </div>
     )
