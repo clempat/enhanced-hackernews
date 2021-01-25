@@ -8,6 +8,10 @@
     margin-bottom: calc(var(--base-space) * 4);
 }
 
+.Disabled {
+    color: var(--secondary-text-color);
+}
+
 .Position {
     padding: 8px;
     flex-grow: 0;

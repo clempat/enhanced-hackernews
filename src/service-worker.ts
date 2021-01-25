@@ -79,4 +79,34 @@ self.addEventListener('message', (event) => {
     }
 })
 
+const OFFLINE_CACHE = 'v2'
+
 // Any other custom service worker logic can go here.
+self.addEventListener('fetch', function (event: FetchEvent) {
+    if (!event.request.url.startsWith('https://hacker-news.firebaseio.com')) return
+
+    event.respondWith(
+        fetch(event.request)
+            .then(function persistCache(response) {
+                // Ignore if not ok
+                if (response.status >= 400) return response
+                void caches.open(OFFLINE_CACHE).then(function (cache) {
+                    void cache.put(event.request, response)
+                })
+                return response.clone()
+            })
+            // No Network, retrieve from cache
+            .catch(function retrieveCache() {
+                return caches
+                    .open(OFFLINE_CACHE)
+                    .then(function (cache) {
+                        return cache.match(event.request)
+                    })
+                    .then(function noCache(response) {
+                        if (!response)
+                            return new Response(JSON.stringify(undefined), { status: 503 })
+                        return response
+                    })
+            }),
+    )
+})

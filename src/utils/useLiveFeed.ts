@@ -21,6 +21,7 @@ export default function useLiveFeed() {
             function tick() {
                 void fetchNews().then(updateItems)
             }
+
             tick()
             const autoUpdate = setInterval(tick, 10000)
             return () => {

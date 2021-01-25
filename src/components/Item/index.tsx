@@ -12,33 +12,39 @@ interface Props {
 export default function ItemComponent({ id, position }: Props): React.ReactElement | null {
     const [item, setItem] = useState<Item>()
     const itemRef = useRef<HTMLDivElement | null>(null)
+    const [failed, setFailed] = useState(false)
 
-    const [isVisible] = useIntersectionObserver({ elementRef: itemRef, freezeOnceVisible: true })
+    const [isVisible] = useIntersectionObserver({ elementRef: itemRef, freezeOnceVisible: !failed })
 
     useEffect(
         function loadItem() {
             if (!isVisible) return
-            void fetchItemById(id).then(setItem)
+            void fetchItemById(id)
+                .then(function success(item) {
+                    setItem(item)
+                    setFailed(false)
+                })
+                .catch(function failed() {
+                    setFailed(true)
+                })
         },
         [setItem, id, isVisible],
     )
 
-    useEffect(
-        // Sometime the news is not there yet so we need to re-fetch
-        function reFetch() {
-            if (item === null && isVisible) {
-                setTimeout(function () {
-                    void fetchItemById(id).then(setItem)
-                }, 1000)
-            }
-        },
-        [item, id, isVisible],
-    )
-
+    // Write a message if no item
     if (!item) {
         return (
             <div className="Item" ref={itemRef}>
-                Loading...
+                {position && (
+                    <div className="Position">
+                        <div className="Position__Circle">{position}</div>
+                    </div>
+                )}
+                <div className="Content">
+                    <div className="Title Disabled">
+                        {failed ? 'Check your Network !' : 'Loading...'}
+                    </div>
+                </div>
             </div>
         )
     }

@@ -14,6 +14,7 @@ export interface Item {
 
 export async function fetchItemById(id: number): Promise<Item> {
     const response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+    if (response.status === 503) throw new Error('Not Available')
     return ((await response.json()) as unknown) as Item
 }
 
