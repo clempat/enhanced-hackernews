@@ -14,7 +14,7 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
     const itemRef = useRef<HTMLDivElement | null>(null)
     const [failed, setFailed] = useState(false)
 
-    const [isVisible] = useIntersectionObserver({ elementRef: itemRef, freezeOnceVisible: !failed })
+    const [isVisible] = useIntersectionObserver({ elementRef: itemRef })
 
     useEffect(
         function loadItem() {
@@ -34,14 +34,14 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
     // Write a message if no item
     if (!item) {
         return (
-            <div className="Item" ref={itemRef}>
+            <div className={`Item ${isVisible ? '' : 'Item--hidden'}`} ref={itemRef}>
                 {position && (
-                    <div className="Position">
-                        <div className="Position__Circle">{position}</div>
+                    <div className="Item__position">
+                        <div className="Item__position__Circle">{position}</div>
                     </div>
                 )}
-                <div className="Content">
-                    <div className="Title Disabled">
+                <div className="Item__content">
+                    <div className="Item__title disabled">
                         {failed ? 'Check your Network !' : 'Loading...'}
                     </div>
                 </div>
@@ -52,21 +52,21 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
     return (
         <div className="Item">
             {position && (
-                <div className="Position">
-                    <div className="Position__Circle">{position}</div>
+                <div className="Item__position">
+                    <div className="Item__position__Circle">{position}</div>
                 </div>
             )}
-            <div className="Content">
-                <div className="Title">
+            <div className="Item__content">
+                <div className="Item__title">
                     {item.url ? <a href={item.url}>{item.title}</a> : item.title}
                 </div>
-                <div className="Detail">
+                <div className="Item__detail">
                     {item.url ? (
-                        <div className="Hostname">{new URL(item.url).hostname}</div>
+                        <div className="Item__hostname">{new URL(item.url).hostname}</div>
                     ) : (
-                        <div className="Hostname">No Link</div>
+                        <div className="Item__hostname">No Link</div>
                     )}
-                    <div className="TimeAuthor">
+                    <div className="Item__time_author">
                         <span>{getDiffText(item.time, Date.now() / 1000)} ago</span>{' '}
                         <span>by {item.by}</span>
                     </div>
