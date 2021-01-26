@@ -57,7 +57,7 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
                 </div>
             )}
             <div className="Item__content">
-                <div className="Item__title">
+                <div className={`Item__title ${item.url ? '' : 'disabled'}`}>
                     {item.url ? <a href={item.url}>{item.title}</a> : item.title}
                 </div>
                 <div className="Item__detail">
