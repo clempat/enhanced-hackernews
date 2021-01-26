@@ -15,7 +15,10 @@ export default function useLiveFeed() {
                     setItemsId(ids)
                     return
                 }
-                setItemsId([...ids.slice(0, cursor), ...itemsId])
+                // Add one second in order to make sure the new items are available to fetch
+                setTimeout(function () {
+                    setItemsId([...ids.slice(0, cursor), ...itemsId])
+                }, 1000)
             }
 
             function tick() {
