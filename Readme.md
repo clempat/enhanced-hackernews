@@ -5,13 +5,11 @@ This is a Hacker News reader with the following features:
 - Real time Fetching
 - Great Performance
 - Scrolling without friction
+- offline support
 
 ## Contribution
-This is a basic project based on Create React App. You will find the same commands available.
-
-1. Install
-2. Do you contribution
-3. Write and run the tests
+This is a basic project based on Create React App. 
+You will find the same commands available.
 
 ### Install
 Run `npm install`
@@ -20,4 +18,4 @@ Run `npm install`
 Run `npm test`
 
 ### Start the application
-Run `npm start`
+Run `npm start`, this should open http://localhost:3000
