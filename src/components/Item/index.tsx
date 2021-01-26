@@ -14,7 +14,10 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
     const itemRef = useRef<HTMLDivElement | null>(null)
     const [failed, setFailed] = useState(false)
 
-    const [isVisible] = useIntersectionObserver({ elementRef: itemRef })
+    const [isVisible] = useIntersectionObserver({
+        elementRef: itemRef,
+        freezeOnceVisible: Boolean(item),
+    })
 
     useEffect(
         function loadItem() {
