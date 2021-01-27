@@ -70,4 +70,5 @@
 
 .Item--hidden {
     max-height: 0;
+    padding: 0;
 }
