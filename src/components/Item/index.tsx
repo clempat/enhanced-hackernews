@@ -37,7 +37,7 @@ export default function ItemComponent({ id, position }: Props): React.ReactEleme
     // Write a message if no item
     if (!item) {
         return (
-            <div className={`Item ${isVisible ? '' : 'Item--hidden'}`} ref={itemRef}>
+            <div className="Item" ref={itemRef}>
                 {position && (
                     <div className="Item__position">
                         <div className="Item__position__Circle">{position}</div>
